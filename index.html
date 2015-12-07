@@ -18,19 +18,21 @@
 		</ul>
 
 		<div ng-if="shouldShowCreating()">
-			<button type="button" ng-click="startCreating();">Add products</button>
-			<form ng-show="isCreating" role="form" ng-submit="createProduct(newProduct)" novalidate>
+			<button type="button" ng-click="startCreating();">Add a new item</button>
+			<form ng-show="isCreating" role="form" name="$parent.createProductForm" ng-submit="createProduct(newProduct)" novalidate>
+				<h2>Add a new item</h2>
 				<div>
 					<label for="newProductName">Product name</label>
-					<input type="text" id="newProductName" ng-model="newProduct.name" placeholder="Enter name">
+					<input type="text" id="newProductName" name="name" ng-model="newProduct.name" required="true" placeholder="Enter name">
+					<span ng-show="createProductForm.name.$error.required && createProductForm.$submitted">Product name is required.</span>
 				</div>
 				<div>
 					<label for="newProductQty">Product quantity</label>
-					<input type="text" id="newProductQty" ng-model="newProduct.qty" placeholder="Enter quantity">
+					<input type="text" id="newProductQty" name="qty" ng-model="newProduct.qty" placeholder="Enter quantity">
 				</div>
 				<div>
 					<label for="newProductUnits">Product units</label>
-					<input type="text" id="newProductUnits" ng-model="newProduct.units" placeholder="Enter units">
+					<input type="text" id="newProductUnits" name="units" ng-model="newProduct.units" placeholder="Enter units">
 				</div>
 				<button type="submit">Add</button>
 				<button type="button" ng-click="cancelCreating();">Cancel</button>

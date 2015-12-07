@@ -22,17 +22,20 @@ angular.module('Neoshopper', [
 	function resetCreateForm () {
 		$scope.newProduct = {
 			name: '',
-			qty: 0,
+			qty: null,
 			units: ''
 		}
+
+		$scope.createProductForm.$setPristine();
 	}
 
 	function createProduct(product) {
-		console.log("started creating");
-		product.id = $scope.products.length;
-		$scope.products.push(product);
+		if($scope.createProductForm.$valid) {
+			product.id = $scope.products.length;
+			$scope.products.push(product);
 
-		resetCreateForm();
+			resetCreateForm();
+		}
 	}
 
 	$scope.createProduct = createProduct;
@@ -81,6 +84,7 @@ angular.module('Neoshopper', [
 
 	function cancelCreating() {
 		$scope.isCreating = false;
+		resetCreateForm();
 	}
 
 	function startEditing() {
