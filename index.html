@@ -9,7 +9,7 @@
 	<body ng-controller="MainCtrl">
 		<ul>
 			<li ng-repeat="product in products">
-				<button type="button">Delete</button>
+				<button type="button" ng-click="deleteProduct(product);">Delete</button>
 				<button type="button" ng-click="setEditedProduct(product);startEditing();">Edit</button>
 				{{product.name}}
 				{{product.qty}}

@@ -57,6 +57,14 @@ angular.module('Neoshopper', [
 	$scope.setEditedProduct = setEditedProduct;
 	$scope.updateProduct = updateProduct;
 
+	function deleteProduct(product) {
+		_.remove($scope.products, function (p) {
+			return p.id == product.id;
+		});
+	}
+
+	$scope.deleteProduct = deleteProduct;
+
 	//--------------------------------------------------------------
 	// CREATING AND EDITING STATES
 	//--------------------------------------------------------------
