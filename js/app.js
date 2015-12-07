@@ -3,17 +3,63 @@ angular.module('Neoshopper', [
 ]).controller('MainCtrl', function($scope) {
 	
 	$scope.products = [
-		{"id": 0, "title": "Milk", "quantity": "2", "units": "liters"},
-		{"id": 1, "title": "Water", "quantity": "3", "units": "liters"},
-		{"id": 2, "title": "Bananas", "quantity": "5", "units": "pcs"},
-		{"id": 3, "title": "Sweater", "quantity": "1", "units": "pcs"},
-		{"id": 4, "title": "Shirt", "quantity": "2", "units": "pcs"},
-		{"id": 5, "title": "Mascara", "quantity": "1", "units": "pcs"},
-		{"id": 6, "title": "Coffee", "quantity": "1", "units": "package"},
-		{"id": 7, "title": "Apples", "quantity": "2", "units": "kilos"},
-		{"id": 8, "title": "Powder", "quantity": "2", "units": "pcs"},
-		{"id": 9, "title": "Cleaner", "quantity": "2", "units": "pcs"}
+		{"id": 0, "name": "Milk", "qty": 2, "units": "liters"},
+		{"id": 1, "name": "Water", "qty": 3, "units": "liters"},
+		{"id": 2, "name": "Bananas", "qty": 4, "units": "pcs"},
+		{"id": 3, "name": "Sweater", "qty": 1, "units": "pcs"},
+		{"id": 4, "name": "Shirt", "qty": 2, "units": "pcs"},
+		{"id": 5, "name": "Mascara", "qty": 1, "units": "pcs"},
+		{"id": 6, "name": "Coffee", "qty": 1, "units": "package"},
+		{"id": 7, "name": "Apples", "qty": 2, "units": "kilos"},
+		{"id": 8, "name": "Powder", "qty": 3, "units": "pcs"},
+		{"id": 9, "name": "Cleaner", "qty": 5, "units": "pcs"}
 	];
+
+	//--------------------------------------------------------------
+	// CRUD
+	//--------------------------------------------------------------
+
+	function resetCreateForm () {
+		$scope.newProduct = {
+			name: '',
+			qty: 0,
+			units: ''
+		}
+	}
+
+	function createProduct(product) {
+		console.log("started creating");
+		product.id = $scope.products.length;
+		$scope.products.push(product);
+
+		resetCreateForm();
+	}
+
+	$scope.createProduct = createProduct;
+
+	$scope.editedProduct = null;
+
+	function setEditedProduct (product) {
+		$scope.editedProduct = angular.copy(product);
+	}
+
+	function updateProduct(product) {
+		var index = _.findIndex($scope.products, function(p) {
+			return p.id == product.id;
+		});
+
+		$scope.products[index] = product;
+
+		$scope.editedProduct = null;
+		$scope.isEditing = false;
+	}
+
+	$scope.setEditedProduct = setEditedProduct;
+	$scope.updateProduct = updateProduct;
+
+	//--------------------------------------------------------------
+	// CREATING AND EDITING STATES
+	//--------------------------------------------------------------
 
 	$scope.isCreating = false;
 	$scope.isEditing = false;

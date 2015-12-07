@@ -10,30 +10,58 @@
 		<ul>
 			<li ng-repeat="product in products">
 				<button type="button">Delete</button>
-				<button type="button" ng-click="startEditing();">Edit</button>
-				{{product.title}}
-				{{product.quantity}}
+				<button type="button" ng-click="setEditedProduct(product);startEditing();">Edit</button>
+				{{product.name}}
+				{{product.qty}}
 				{{product.units}}
 			</li>
 		</ul>
 
 		<div ng-if="shouldShowCreating()">
 			<button type="button" ng-click="startCreating();">Add products</button>
-			<div ng-if="isCreating">
-				Add a product!
+			<form ng-show="isCreating" role="form" ng-submit="createProduct(newProduct)" novalidate>
+				<div>
+					<label for="newProductName">Product name</label>
+					<input type="text" id="newProductName" ng-model="newProduct.name" placeholder="Enter name">
+				</div>
+				<div>
+					<label for="newProductQty">Product quantity</label>
+					<input type="text" id="newProductQty" ng-model="newProduct.qty" placeholder="Enter quantity">
+				</div>
+				<div>
+					<label for="newProductUnits">Product units</label>
+					<input type="text" id="newProductUnits" ng-model="newProduct.units" placeholder="Enter units">
+				</div>
+				<button type="submit">Add</button>
 				<button type="button" ng-click="cancelCreating();">Cancel</button>
-			</div>
+			</form>
 		</div>
-		<div ng-if="shouldShowEditing()">
+		<div ng-show="shouldShowEditing()">
 			<div>
-				Edit a product!
-				<button type="button" ng-click="cancelEditing();">Cancel</button>
+				<h3>Editing {{editedProduct.name}}</h3>
+				<form role="form" ng-submit="updateProduct(editedProduct)" novalidate>
+					<div>
+						<label>Product name</label>
+						<input type="text" ng-model="editedProduct.name" placeholder="Enter name">
+					</div>
+					<div>
+						<label>Product quantity</label>
+						<input type="text" ng-model="editedProduct.qty" placeholder="Enter quantity">
+					</div>
+					<div>
+						<label>Product units</label>
+						<input type="text" ng-model="editedProduct.units" placeholder="Enter units">
+					</div>
+					<button type="submit">Save</button>
+					<button type="button" ng-click="cancelEditing();">Cancel</button>
+				</form>				
 			</div>
 		</div>
 
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 		<script src="js/app.js"></script>
 	  	
 	</body>
