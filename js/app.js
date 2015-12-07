@@ -24,7 +24,7 @@ angular.module('Neoshopper', [
 			name: '',
 			qty: null,
 			units: ''
-		}
+		};
 
 		$scope.createProductForm.$setPristine();
 	}
@@ -35,6 +35,8 @@ angular.module('Neoshopper', [
 			$scope.products.push(product);
 
 			resetCreateForm();
+			$scope.isCreating = false;
+
 		}
 	}
 

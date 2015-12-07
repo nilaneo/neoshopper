@@ -17,7 +17,7 @@
 			</li>
 		</ul>
 
-		<div ng-if="shouldShowCreating()">
+		<div ng-show="shouldShowCreating()">
 			<button type="button" ng-click="startCreating();">Add a new item</button>
 			<form ng-show="isCreating" role="form" name="$parent.createProductForm" ng-submit="createProduct(newProduct)" novalidate>
 				<h2>Add a new item</h2>
@@ -34,7 +34,7 @@
 					<label for="newProductUnits">Product units</label>
 					<input type="text" id="newProductUnits" name="units" ng-model="newProduct.units" placeholder="Enter units">
 				</div>
-				<button type="submit">Add</button>
+				<button type="submit" ng-disabled="createProductForm.$submitted && createProductForm.$invalid">Add</button>
 				<button type="button" ng-click="cancelCreating();">Cancel</button>
 			</form>
 		</div>
