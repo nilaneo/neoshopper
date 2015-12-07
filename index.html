@@ -10,12 +10,28 @@
 		<ul>
 			<li ng-repeat="product in products">
 				<button type="button">Delete</button>
-				<button type="button">Edit</button>
+				<button type="button" ng-click="startEditing();">Edit</button>
 				{{product.title}}
 				{{product.quantity}}
 				{{product.units}}
 			</li>
 		</ul>
+
+		<div ng-if="shouldShowCreating()">
+			<button type="button" ng-click="startCreating();">Add products</button>
+			<div ng-if="isCreating">
+				Add a product!
+				<button type="button" ng-click="cancelCreating();">Cancel</button>
+			</div>
+		</div>
+		<div ng-if="shouldShowEditing()">
+			<div>
+				Edit a product!
+				<button type="button" ng-click="cancelEditing();">Cancel</button>
+			</div>
+		</div>
+
+
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script src="js/app.js"></script>
