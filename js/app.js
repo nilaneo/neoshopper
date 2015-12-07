@@ -58,9 +58,11 @@ angular.module('Neoshopper', [
 	$scope.updateProduct = updateProduct;
 
 	function deleteProduct(product) {
-		_.remove($scope.products, function (p) {
-			return p.id == product.id;
-		});
+		if (window.confirm('You are going to delete "' + product.name + '". Are you sure?')) {
+			_.remove($scope.products, function (p) {
+				return p.id == product.id;
+			});
+		}
 	}
 
 	$scope.deleteProduct = deleteProduct;
