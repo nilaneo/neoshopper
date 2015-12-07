@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="Neoshopper">
+	<head lang="en">
+	    <meta charset="UTF-8">
+	    <title>Neoshopper</title>
+	   
+	</head>
+
+	<body ng-controller="MainCtrl">
+		<ul>
+			<li ng-repeat="product in products">
+				<button type="button">Delete</button>
+				<button type="button">Edit</button>
+				{{product.title}}
+				{{product.quantity}}
+				{{product.units}}
+			</li>
+		</ul>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="js/app.js"></script>
+	  	
+	</body>
+</html>
