@@ -36,7 +36,6 @@ angular.module('Neoshopper', [
 
 			resetCreateForm();
 			$scope.isCreating = false;
-
 		}
 	}
 
@@ -45,18 +44,28 @@ angular.module('Neoshopper', [
 	$scope.editedProduct = null;
 
 	function setEditedProduct (product) {
-		$scope.editedProduct = angular.copy(product);
+		if($scope.isEditing && product !== $scope.editedProduct) {
+			if (window.confirm('You are editing an item already. Do you want to edit "' + product.name + '" instead?')) {
+				$scope.editedProduct = angular.copy(product);
+			}
+		} else if(product == $scope.editedProduct) {
+			window.alert('You are already editing this item.');
+		} else {
+			$scope.editedProduct = angular.copy(product);			
+		}
 	}
 
 	function updateProduct(product) {
-		var index = _.findIndex($scope.products, function(p) {
-			return p.id == product.id;
-		});
+		if($scope.editProductForm.$valid) {
+			var index = _.findIndex($scope.products, function(p) {
+				return p.id == product.id;
+			});
 
-		$scope.products[index] = product;
+			$scope.products[index] = product;
 
-		$scope.editedProduct = null;
-		$scope.isEditing = false;
+			$scope.editedProduct = null;
+			$scope.isEditing = false;
+		}
 	}
 
 	$scope.setEditedProduct = setEditedProduct;
@@ -89,9 +98,15 @@ angular.module('Neoshopper', [
 		resetCreateForm();
 	}
 
-	function startEditing() {
-		$scope.isCreating = false;
-		$scope.isEditing = true;
+	function startEditing(product) {
+		if($scope.isCreating) {
+			if (window.confirm('You are creating a new item already. Do you want to edit "' + product.name + '" instead?')) {
+				$scope.isCreating = false;
+				$scope.isEditing = true;
+			}
+		} else {
+			$scope.isEditing = true;
+		}
 	}
 
 	function cancelEditing() {

@@ -10,7 +10,7 @@
 		<ul>
 			<li ng-repeat="product in products">
 				<button type="button" ng-click="deleteProduct(product);">Delete</button>
-				<button type="button" ng-click="setEditedProduct(product);startEditing();">Edit</button>
+				<button type="button" ng-click="setEditedProduct(product);startEditing(product);">Edit</button>
 				{{product.name}}
 				{{product.qty}}
 				{{product.units}}
@@ -41,10 +41,11 @@
 		<div ng-show="shouldShowEditing()">
 			<div>
 				<h3>Editing {{editedProduct.name}}</h3>
-				<form role="form" ng-submit="updateProduct(editedProduct)" novalidate>
+				<form role="form" name="$parent.editProductForm" ng-submit="updateProduct(editedProduct)" novalidate>
 					<div>
 						<label>Product name</label>
-						<input type="text" ng-model="editedProduct.name" placeholder="Enter name">
+						<input type="text" ng-model="editedProduct.name" placeholder="Enter name" required="true">
+						<span ng-show="editProductForm.$invalid && editProductForm.$submitted">Product name is required.</span>
 					</div>
 					<div>
 						<label>Product quantity</label>
@@ -54,7 +55,7 @@
 						<label>Product units</label>
 						<input type="text" ng-model="editedProduct.units" placeholder="Enter units">
 					</div>
-					<button type="submit">Save</button>
+					<button type="submit" ng-disabled="editProductForm.$submitted && editProductForm.$invalid">Save</button>
 					<button type="button" ng-click="cancelEditing();">Cancel</button>
 				</form>				
 			</div>
