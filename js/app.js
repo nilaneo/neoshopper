@@ -76,6 +76,10 @@ angular.module('Neoshopper', [
 			_.remove($scope.products, function (p) {
 				return p.id == product.id;
 			});
+
+			if($scope.isEditing && product.id == $scope.editedProduct.id) {
+				cancelEditing();
+			}
 		}
 	}
 
