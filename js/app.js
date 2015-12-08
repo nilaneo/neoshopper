@@ -51,7 +51,9 @@ angular.module('Neoshopper', [
 			category: $scope.currentCategory
 		};
 
-		$scope.createProductForm.$setPristine();
+		if($scope.createProductForm) {
+			$scope.createProductForm.$setPristine();
+		}
 	}
 
 	function createProduct(product) {
