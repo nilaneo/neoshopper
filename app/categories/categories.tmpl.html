@@ -1,8 +1,9 @@
 <div>
+	<h1><a ui-sref="neoshopper.categories">Neoshopper</a></h1>
 	<h2>Product categories</h2>
 	<ul>
-		<li ng-repeat="category in categoriesListCtrl.categories" ng-class="{'active': isCurrentCategory(category)}">
-			<a ui-sref="neoshopper.categories.products({category:category.name})" ng-click="setCurrentCategory(category)">{{category.name}}</a>
+		<li ng-repeat="category in categoriesListCtrl.categories">
+			<a ui-sref="neoshopper.categories.products({category:category.name})">{{category.name}}</a>
 		</li>
 	</ul>
 </div>

@@ -9,6 +9,10 @@ angular.module('categories', [
 					'categories@': {
 						controller: 'CategoriesListCtrl as categoriesListCtrl',
 						templateUrl: 'app/categories/categories.tmpl.html'
+					},
+					'products@': {
+						controller: 'ProductsListCtrl as productsListCtrl',
+						templateUrl: 'app/categories/products/products.tmpl.html'
 					}
 				}
 			})

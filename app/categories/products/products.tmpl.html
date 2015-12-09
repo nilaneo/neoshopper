@@ -1,12 +1,11 @@
-<h1>{{products.curretnCategoryName}}</h1>
+<h1>{{productsListCtrl.currentCategoryName}}</h1>
 
 <div>
-	<h2>Products to buy</h2>
-	
+	<h2>Products to buy</h2>	
 	<ul>
-		<li ng-repeat="product in productsListCtrl.products | filter:{category:currentCategory.name === 'All categories' ? undefined : currentCategory.name}">
-			<button type="button" ng-click="deleteProduct(product);">Delete</button>
-			<button type="button" ng-click="setEditedProduct(product);startEditing(product);">Edit</button>
+		<li ng-repeat="product in productsListCtrl.products | filter:{category:productsListCtrl.getCurrentCategoryName() === 'All categories' ? undefined : productsListCtrl.getCurrentCategoryName()}">
+			<button type="button" ng-click="productsListCtrl.deleteProduct(product);">Delete</button>
+			<button type="button" ui-sref="neoshopper.categories.products.edit({productId:product.id})">Edit</button>
 			{{product.name}}
 			{{product.qty}}
 			{{product.units}}
@@ -14,50 +13,6 @@
 	</ul>
 </div>
 
-<div ng-if="shouldShowCreating()">
-	<button type="button" ng-show="currentCategory.name !== 'All categories'" ng-click="startCreating();">Add a new item</button>
-	<form ng-show="isCreating" role="form" name="$parent.createProductForm" ng-submit="createProduct(newProduct)" novalidate>
-		<h2>Add a new item</h2>
-		<div>
-			<label for="newProductName">Product name</label>
-			<input type="text" id="newProductName" name="name" ng-model="newProduct.name" required="true" placeholder="Enter a name">
-			<span ng-show="createProductForm.name.$error.required && createProductForm.$submitted">Product name is required.</span>
-		</div>
-		<div>
-			<label for="newProductQty">Quantity</label>
-			<input type="text" id="newProductQty" name="qty" ng-model="newProduct.qty" placeholder="Enter quantity">
-		</div>
-		<div>
-			<label for="newProductUnits">Units</label>
-			<input type="text" id="newProductUnits" name="units" ng-model="newProduct.units" placeholder="Enter units">
-		</div>
-		<button type="submit" ng-disabled="createProductForm.$submitted && createProductForm.$invalid">Add</button>
-		<button type="button" ng-click="cancelCreating();">Cancel</button>
-	</form>
-</div>
-<div ng-show="shouldShowEditing()">
-	<div>
-		<h3>Editing {{editedProduct.name}}</h3>
-		<form role="form" name="$parent.editProductForm" ng-submit="updateProduct(editedProduct)" novalidate>
-			<div>
-				<label>Product name</label>
-				<input type="text" ng-model="editedProduct.name" placeholder="Enter a name" required="true">
-				<span ng-show="editProductForm.$invalid && editProductForm.$submitted">Product name is required.</span>
-			</div>
-			<div>
-				<label>Product quantity</label>
-				<input type="text" ng-model="editedProduct.qty" placeholder="Enter quantity">
-			</div>
-			<div>
-				<label>Product units</label>
-				<input type="text" ng-model="editedProduct.units" placeholder="Enter units">
-			</div>
-			<div>
-				<label>Category</label>
-				<input type="text" id="newProductCategory" name="category" ng-model="editedProduct.category" placeholder="Enter a category">
-			</div>
-			<button type="submit" ng-disabled="editProductForm.$submitted && editProductForm.$invalid">Save</button>
-			<button type="button" ng-click="cancelEditing();">Cancel</button>
-		</form>				
-	</div>
-</div>
+<ui-view>
+	<button type="button" ng-if="productsListCtrl.getCurrentCategoryName() && productsListCtrl.getCurrentCategoryName() !== 'All categories'" ui-sref="neoshopper.categories.products.create">Add a new item</button>
+</ui-view>

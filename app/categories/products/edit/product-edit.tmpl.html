@@ -1,0 +1,18 @@
+<h4>Editing {{editProductCtrl.product.name}}</h4>
+<form role="form" name="editProductForm" ng-submit="editProductCtrl.updateProduct(editedProduct)" novalidate>
+	<div>
+		<label>Product name</label>
+		<input type="text" ng-model="editProductCtrl.editedProduct.name" placeholder="Enter a name" required="true">
+		<span ng-show="editProductForm.$invalid && editProductForm.$submitted">Product name is required.</span>
+	</div>
+	<div>
+		<label>Product quantity</label>
+		<input type="text" ng-model="editProductCtrl.editedProduct.qty" placeholder="Enter quantity">
+	</div>
+	<div>
+		<label>Product units</label>
+		<input type="text" ng-model="editProductCtrl.editedProduct.units" placeholder="Enter units">
+	</div>
+	<button type="submit" ng-disabled="editProductForm.$submitted && editProductForm.$invalid">Save</button>
+	<button type="button" ng-click="editProductCtrl.cancelEditing();">Cancel</button>
+</form>

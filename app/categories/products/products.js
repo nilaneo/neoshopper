@@ -17,12 +17,19 @@ angular.module('categories.products', [
 			})
 		;
 	})
-	.controller('ProductsListCtrl', function ($stateParams, ProductsModel) {
+	.controller('ProductsListCtrl', function ($stateParams, ProductsModel, CategoriesModel) {
 		var productsListCtrl = this;
-		productsListCtrl.currentCategoryName = $stateParams.category;
+		
+		CategoriesModel.setCurrentCategory($stateParams.category);
+
 		ProductsModel.getProducts()
-			.then(function(result) {
-				productsListCtrl.products = result;
+			.then(function(products) {
+				productsListCtrl.products = products;
 			});
+
+		productsListCtrl.getCurrentCategory = CategoriesModel.getCurrentCategory;
+		productsListCtrl.getCurrentCategoryName = CategoriesModel.getCurrentCategoryName;
+		productsListCtrl.deleteProduct = ProductsModel.deleteProduct;
+
 	})
 ;

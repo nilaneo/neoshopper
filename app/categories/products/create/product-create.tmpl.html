@@ -1,0 +1,18 @@
+<form role="form" name="$parent.createProductForm" ng-submit="createProductCtrl.createProduct(newProduct)" novalidate>
+	<h2>Add a new item</h2>
+	<div>
+		<label for="newProductName">Product name</label>
+		<input type="text" id="newProductName" name="name" ng-model="createProductCtrl.newProduct.name" required="true" placeholder="Enter a name">
+		<span ng-show="createProductForm.name.$error.required && createProductForm.$submitted">Product name is required.</span>
+	</div>
+	<div>
+		<label for="newProductQty">Quantity</label>
+		<input type="text" id="newProductQty" name="qty" ng-model="createProductCtrl.newProduct.qty" placeholder="Enter quantity">
+	</div>
+	<div>
+		<label for="newProductUnits">Units</label>
+		<input type="text" id="newProductUnits" name="units" ng-model="createProductCtrl.newProduct.units" placeholder="Enter units">
+	</div>
+	<button type="submit" ng-disabled="createProductForm.$submitted && createProductForm.$invalid">Add</button>
+	<button type="button" ng-click="createProductCtrl.cancelCreating()">Cancel</button>
+</form>
