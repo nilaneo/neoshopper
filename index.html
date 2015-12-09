@@ -13,82 +13,24 @@
 	</head>
 
 	<body ng-controller="MainCtrl">
-		<div>
-			<h2>Product categories</h2>
-			<ul>
-				<li ng-repeat="category in categories" ng-class="{'active': isCurrentCategory(category)}">
-					<a href="#" ng-click="setCurrentCategory(category)">{{category.name}}</a>
-				</li>
-			</ul>
-		</div>
-
-		<div>
-			<h2>Products to buy</h2>
+		<div ui-view="categories">
 			
-			<ul>
-				<li ng-repeat="product in products | filter:{category:currentCategory.name === 'All categories' ? undefined : currentCategory.name}">
-					<button type="button" ng-click="deleteProduct(product);">Delete</button>
-					<button type="button" ng-click="setEditedProduct(product);startEditing(product);">Edit</button>
-					{{product.name}}
-					{{product.qty}}
-					{{product.units}}
-				</li>
-			</ul>
+		</div>
+		<div ui-view="products">
+			
 		</div>
 
-		<div ng-if="shouldShowCreating()">
-			<button type="button" ng-click="startCreating();">Add a new item</button>
-			<form ng-show="isCreating" role="form" name="$parent.createProductForm" ng-submit="createProduct(newProduct)" novalidate>
-				<h2>Add a new item</h2>
-				<div>
-					<label for="newProductName">Product name</label>
-					<input type="text" id="newProductName" name="name" ng-model="newProduct.name" required="true" placeholder="Enter a name">
-					<span ng-show="createProductForm.name.$error.required && createProductForm.$submitted">Product name is required.</span>
-				</div>
-				<div>
-					<label for="newProductQty">Quantity</label>
-					<input type="text" id="newProductQty" name="qty" ng-model="newProduct.qty" placeholder="Enter quantity">
-				</div>
-				<div>
-					<label for="newProductUnits">Units</label>
-					<input type="text" id="newProductUnits" name="units" ng-model="newProduct.units" placeholder="Enter units">
-				</div>
-				<button type="submit" ng-disabled="createProductForm.$submitted && createProductForm.$invalid">Add</button>
-				<button type="button" ng-click="cancelCreating();">Cancel</button>
-			</form>
-		</div>
-		<div ng-show="shouldShowEditing()">
-			<div>
-				<h3>Editing {{editedProduct.name}}</h3>
-				<form role="form" name="$parent.editProductForm" ng-submit="updateProduct(editedProduct)" novalidate>
-					<div>
-						<label>Product name</label>
-						<input type="text" ng-model="editedProduct.name" placeholder="Enter a name" required="true">
-						<span ng-show="editProductForm.$invalid && editProductForm.$submitted">Product name is required.</span>
-					</div>
-					<div>
-						<label>Product quantity</label>
-						<input type="text" ng-model="editedProduct.qty" placeholder="Enter quantity">
-					</div>
-					<div>
-						<label>Product units</label>
-						<input type="text" ng-model="editedProduct.units" placeholder="Enter units">
-					</div>
-					<div>
-						<label>Category</label>
-						<input type="text" id="newProductCategory" name="category" ng-model="editedProduct.category" placeholder="Enter a category">
-					</div>
-					<button type="submit" ng-disabled="editProductForm.$submitted && editProductForm.$invalid">Save</button>
-					<button type="button" ng-click="cancelEditing();">Cancel</button>
-				</form>				
-			</div>
-		</div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 
-
-
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
-		<script src="js/app.js"></script>
+		<script src="app/neoshopper-app.start.js"></script>
+		<script src="app/categories/categories.js"></script>
+		<script src="app/categories/products/products.js"></script>
+		<script src="app/categories/products/create/product-create.js"></script>
+		<script src="app/categories/products/edit/product-edit.js"></script>
+		<script src="app/common/models/categories-model.js"></script>
+		<script src="app/common/models/products-model.js"></script>
 	  	
 	</body>
 </html>
