@@ -20,6 +20,9 @@ angular.module('categories.products', [
 	.controller('ProductsListCtrl', function ($stateParams, ProductsModel) {
 		var productsListCtrl = this;
 		productsListCtrl.currentCategoryName = $stateParams.category;
-		productsListCtrl.products = ProductsModel.getProducts();
+		ProductsModel.getProducts()
+			.then(function(result) {
+				productsListCtrl.products = result;
+			});
 	})
 ;
